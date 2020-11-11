@@ -130,6 +130,7 @@ func BenchmarkRandomIndexParallel(b *testing.B) {
 	})
 }
 
+/* This example will output the shuffled set of range [1000, 1020) */
 func ExampleShuffle() {
 	s, _ := Shuffle(1000, 1020, NewFeistel(keys, roundFunction))
 	for v := range s {
@@ -156,4 +157,16 @@ func ExampleShuffle() {
 	// 1002
 	// 1018
 	// 1019
+}
+
+/* This test will produce a single shuffled value of the range [0, 1000) and reverse it back. */
+func ExampleRandomAccess() {
+	fn := NewFeistel(keys, roundFunction)
+	v, _ := RandomIndex(0, 1000, fn)
+	fmt.Println(v)
+	v, _ = GetIndex(846, 1000, fn)
+	fmt.Println(v)
+	// Output:
+	// 846
+	// 0
 }
